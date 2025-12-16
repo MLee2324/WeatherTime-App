@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worldwide Weather and Clock</title>
+    <link rel="stylesheet" href="../Background/worldwide1.css">
+</head>
+<body>
+    <div class="card">
+        <div class="search">
+        </div>
+        <div class="weather">
+            <img src="../Images/rain.png" class="weather-icon" alt="Weather Icon">
+            <h1 class="temp">0˚c</h1>
+            <h2 class="city">Enter City Name</h2>
+            <div class="details">
+                <div class="col">
+                    <img src="../Images/humidity.png" alt="Humidity Icon">
+                    <div>
+                        <p class="humidity">0%</p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="../Images/wind.png" alt="Wind Speed Icon">
+                    <div>
+                        <p class="wind">0 km/h</p>
+                        <p>Wind Speed</p>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div class="hero">
+        <div class="container">
+            <div class="clock">
+                <span id="hrs">00</span>
+                <span>:</span>
+                <span id="min">00</span>
+                <span>:</span>
+                <span id="sec">00</span>
+                <span id="ampm">AM</span>
+                <div class="select-container">
+                    <select id="country">
+                        <option value="">Select Country</option>
+                        <option value="Iceland">Iceland (+0)</option>
+                        <option value="Belgium">Belgium (+2)</option>
+                        <option value="France">France (+2)</option>
+                        <option value="Germany">Germany (+2)</option>
+                        <option value="Italy">Italy (+2)</option>
+                        <option value="Netherlands">Netherlands (+2)</option>
+                        <option value="Spain">Spain (+2)</option>
+                        <option value="Poland">Poland (+2)</option>
+                        <option value="Sweden">Sweden (+2)</option>
+                        <option value="Hungary">Hungary (+2)</option>
+                        <option value="Norway">Norway (+2)</option>
+                        <option value="Switzerland">Switzerland (+2)</option>
+                        <option value="Greece">Greece (+3)</option>
+                        <option value="Libya">Libya (+2)</option>
+                        <option value="Malawi">Malawi (+2)</option>
+                        <option value="Mozambique">Mozambique (+2)</option>
+                        <option value="Rwanda">Rwanda (+2)</option>
+                        <option value="South Africa">South Africa (+2)</option>
+                        <option value="Sudan">Sudan (+2)</option>
+                        <option value="Zambia">Zambia (+2)</option>
+                        <option value="Zimbabwe">Zimbabwe (+2)</option>
+                        <option value="Comoros">Comoros (+3)</option>
+                        <option value="Djibouti">Djibouti (+3)</option>
+                        <option value="Eritrea">Eritrea (+3)</option>
+                        <option value="Ethiopia">Ethiopia (+3)</option>
+                        <option value="Kenya">Kenya (+3)</option>
+                        <option value="Madagascar">Madagascar (+3)</option>
+                        <option value="Somalia">Somalia (+3)</option>
+                        <option value="South Sudan">South Sudan (+3)</option>
+                        <option value="Tanzania">Tanzania (+3)</option>
+                        <option value="Mauritius">Mauritius (+4)</option>
+                        <option value="Seychelles">Seychelles (+4)</option>
+                        <option value="Qatar">Qatar (+3)</option>
+                        <option value="United Arab Emirates">United Arab Emirates (+4)</option>
+                        <option value="Afghanistan">Afghanistan (+4:30)</option>
+                        <option value="Pakistan">Pakistan (+5)</option>
+                        <option value="India">India (+5:30)</option>
+                        <option value="Nepal">Nepal (+5:45)</option>
+                        <option value="Bangladesh">Bangladesh (+6)</option>
+                        <option value="Vietnam">Vietnam (+7)</option>
+                        <option value="China">China (+8)</option>
+                        <option value="Hong Kong">Hong Kong (+8)</option>
+                        <option value="Malaysia">Malaysia (+8)</option>
+                        <option value="Japan">Japan (+9)</option>
+                        <option value="Korea">Korea (+9)</option>
+                        <option value="Australia">Australia (+10)</option>
+                        <option value="Papua New Guinea">Papua New Guinea (+10)</option>
+                        <option value="New Caledonia">New Caledonia (+11)</option>
+                        <option value="Solomon Islands">Solomon Islands (+11)</option>
+                        <option value="Fiji">Fiji (+12)</option>
+                        <option value="New Zealand">New Zealand (+12)</option>
+                        <option value="Tuvalu">Tuvalu (+12)</option>
+                        <option value="Canada">Canada (-4)</option>
+                        <option value="Mexico">Mexico (-5)</option>
+                        <option value="United States">United States (-4)</option>
+                        <option value="Bermuda">Bermuda (-4)</option>
+                        <option value="Argentina">Argentina (-3)</option>
+                        <option value="Bolivia">Bolivia (-4)</option>
+                        <option value="Brazil">Brazil (-3)</option>
+                        <option value="Chile">Chile (-4)</option>
+                        <option value="Colombia">Colombia (-5)</option>
+                        <option value="Ecuador">Ecuador (-5)</option>
+                        <option value="Paraguay">Paraguay (-4)</option>
+                        <option value="Peru">Peru (-5)</option>
+                        <option value="Uruguay">Uruguay (-3)</option>
+                        <option value="Venezuela">Venezuela (-4)</option>
+                    </select>
+                    <select class="city" id="city">
+                        <option value="">Select City</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const apiKey = "";
+        const apiUrl = "";
+
+        const timeZoneCities = {
+    "Iceland": { "Reykjavik": "+0" },
+    "Belgium": { "Brussels": "+2" }, 
+    "France": { "Paris": "+2" }, 
+    "Germany": { "Berlin": "+2" }, 
+    "Italy": { "Rome": "+2" }, 
+    "Netherlands": { "Amsterdam": "+2" }, 
+    "Spain": { "Madrid": "+2" }, 
+    "Poland": { "Warsaw": "+2" }, 
+    "Sweden": { "Stockholm": "+2" }, 
+    "Hungary": { "Budapest": "+2" }, 
+    "Norway": { "Oslo": "+2" }, 
+    "Switzerland": { "Zurich": "+2" }, 
+    "Greece": { "Athens": "+3" }, 
+    "Libya": { "Tripoli": "+2" },
+    "Malawi": { "Lilongwe": "+2" },
+    "Mozambique": { "Maputo": "+2" },
+    "Rwanda": { "Kigali": "+2" },
+    "South Africa": { "Pretoria": "+2" },
+    "Sudan": { "Khartoum": "+2" },
+    "Zambia": { "Lusaka": "+2" },
+    "Zimbabwe": { "Harare": "+2" },
+    "Comoros": { "Moroni": "+3" },
+    "Djibouti": { "Djibouti": "+3" },
+    "Eritrea": { "Asmara": "+3" },
+    "Ethiopia": { "Addis Ababa": "+3" },
+    "Kenya": { "Nairobi": "+3" },
+    "Madagascar": { "Antananarivo": "+3" },
+    "Somalia": { "Mogadishu": "+3" },
+    "South Sudan": { "Juba": "+3" },
+    "Tanzania": { "Dar es Salaam": "+3" },
+    "Mauritius": { "Port Louis": "+4" },
+    "Seychelles": { "Victoria": "+4" },
+    "Qatar": { "Doha": "+3" },
+    "United Arab Emirates": { "Abu Dhabi": "+4" },
+    "Afghanistan": { "Kabul": "+4.5" },
+    "Pakistan": { "Karachi": "+5" },
+    "India": { "New Delhi": "+5.5" },
+    "Nepal": { "Kathmandu": "+5.75" },
+    "Bangladesh": { "Dhaka": "+6" },
+    "Vietnam": { "Hanoi": "+7" },
+    "China": { "Beijing": "+8" },
+    "Hong Kong": { "Hong Kong": "+8" },
+    "Malaysia": { "Kuala Lumpur": "+8" },
+    "Japan": { "Tokyo": "+9" },
+    "Korea": { "Seoul": "+9" },
+    "Australia": { "Sydney": "+10" },
+    "Papua New Guinea": { "Port Moresby": "+10" },
+    "New Caledonia": { "Noumea": "+11" },
+    "Solomon Islands": { "Honiara": "+11" },
+    "Fiji": { "Suva": "+12" },
+    "New Zealand": { "Wellington": "+12" },
+    "Tuvalu": { "Funafuti": "+12" },
+    "Canada": { "Toronto": "-4" }, 
+    "Mexico": { "Mexico City": "-5" }, 
+    "United States": { "New York": "-4" }, 
+    "Bermuda": { "Hamilton": "-4" }, 
+    "Argentina": { "Buenos Aires": "-3" },
+    "Bolivia": { "La Paz": "-4" },
+    "Brazil": { "Rio de Janeiro": "-3" }, 
+    "Chile": { "Santiago": "-4" }, 
+    "Colombia": { "Bogota": "-5" },
+    "Ecuador": { "Quito": "-5" },
+    "Paraguay": { "Asuncion": "-4" },
+    "Peru": { "Lima": "-5" },
+    "Uruguay": { "Montevideo": "-3" },
+    "Venezuela": { "Caracas": "-4" }
+};
+
+        async function checkWeather(city) {
+            const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+            if (response.status === 404) {
+                document.querySelector(".weather").style.display = "none";
+            } else {
+                const data = await response.json();
+                document.querySelector(".city").innerHTML = data.name;
+                document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "˚c";
+                document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+                document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
+                const weatherIcon = document.querySelector(".weather-icon");
+                switch (data.weather[0].main) {
+                    case "Clouds":
+                        weatherIcon.src = "../Images/clouds.png";
+                        break;
+                    case "Clear":
+                        weatherIcon.src = "../Images/clear.png";
+                        break;
+                    case "Rain":
+                        weatherIcon.src = "../Images/rain.png";
+                        break;
+                    case "Drizzle":
+                        weatherIcon.src = "../Images/drizzle.png";
+                        break;
+                    case "Mist":
+                        weatherIcon.src = "../Images/mist.png";
+                        break;
+                    default:
+                        weatherIcon.src = "../Images/clear.png";
+                }
+                document.querySelector(".weather").style.display = "block";
+            }
+        }
+
+        function updateCityDropdown() {
+            const country = document.getElementById("country").value;
+            const cityDropdown = document.getElementById("city");
+            cityDropdown.innerHTML = '<option value="">Select City</option>';
+    
+        if (timeZoneCities[country]) {
+            Object.keys(timeZoneCities[country]).forEach(city => {
+                const option = document.createElement("option");
+                option.value = city;
+                option.text = city;
+                cityDropdown.add(option);
+            });
+        }
+}
+    function updateClock() {
+    let currentTime = new Date();
+    let city = document.getElementById("city").value;
+    let offset = 0;
+
+    if (city) {
+        let country = document.getElementById("country").value;
+        if (timeZoneCities[country] && timeZoneCities[country][city]) {
+            offset = parseFloat(timeZoneCities[country][city]);
+        }
+
+        // UTC → local time (minutes)
+        let totalMinutes =
+            currentTime.getUTCHours() * 60 +
+            currentTime.getUTCMinutes() +
+            offset * 60;
+
+        // ⭐ FIX: normalize negative / overflow minutes
+        totalMinutes = ((totalMinutes % 1440) + 1440) % 1440;
+
+        let hours24 = Math.floor(totalMinutes / 60);
+        let minutes = Math.floor(totalMinutes % 60);
+        let seconds = currentTime.getUTCSeconds();
+
+        let period = hours24 >= 12 ? "PM" : "AM";
+        let hours = hours24 % 12;
+        if (hours === 0) hours = 12;
+
+        document.getElementById("hrs").innerHTML =
+            (hours < 10 ? "0" : "") + hours;
+        document.getElementById("min").innerHTML =
+            (minutes < 10 ? "0" : "") + minutes;
+        document.getElementById("sec").innerHTML =
+            (seconds < 10 ? "0" : "") + seconds;
+        document.getElementById("ampm").innerHTML = period;
+    } else {
+        document.getElementById("hrs").textContent = "00";
+        document.getElementById("min").textContent = "00";
+        document.getElementById("sec").textContent = "00";
+        document.getElementById("ampm").textContent = "AM";
+    }
+}
+        
+
+        document.getElementById("country").addEventListener('change', () => {
+            updateCityDropdown();
+            updateClock();
+        });
+
+        document.getElementById("city").addEventListener('change', (event) => {
+            const city = event.target.value;
+            if (city) {
+                checkWeather(city);
+                updateClock();
+            }
+        });
+        
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
